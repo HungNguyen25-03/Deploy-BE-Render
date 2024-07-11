@@ -107,11 +107,11 @@ staffRouters.put(
   updateProductController
 );
 
-const baseDir = path.resolve(process.cwd(), "uploads");
+const uploadDir = path.join(__dirname, "uploads");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads");
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     cb(null, uuidv4() + path.extname(file.originalname));
@@ -127,7 +127,8 @@ staffRouters.post(
     if (!req.file) {
       return res.status(400).json({ error: "File upload failed." });
     }
-    res.json({ url: req.file.path });
+    const relativePath = path.relative(process.cwd(), req.file.path);
+    res.json({ url: relativePath });
   }
 );
 
