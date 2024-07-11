@@ -109,8 +109,8 @@ staffRouters.put(
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, "../../uploads");
-    cb(null, uploadPath);
+    const uploadPath = path.join(__dirname, "./uploads");
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
     cb(null, uuidv4() + path.extname(file.originalname));
@@ -152,3 +152,5 @@ staffRouters.get(
 );
 
 module.exports = staffRouters;
+
+import "../";
