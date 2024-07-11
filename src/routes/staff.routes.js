@@ -119,7 +119,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-staffRouter.post(
+staffRouters.post(
   "/uploads",
   upload.single("uploads"),
   function (req, res, next) {
