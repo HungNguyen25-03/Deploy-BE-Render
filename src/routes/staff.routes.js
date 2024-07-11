@@ -127,8 +127,8 @@ staffRouters.post(
     if (!req.file) {
       return res.status(400).json({ error: "File upload failed." });
     }
-    const relativePath = path.relative(process.cwd(), req.file.path);
-    res.json({ url: relativePath });
+    const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    res.json({ url: fileUrl });
   }
 );
 
