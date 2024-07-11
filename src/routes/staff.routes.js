@@ -107,23 +107,25 @@ staffRouters.put(
   updateProductController
 );
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    const uploadPath = path.join(__dirname, "uploads");
+    cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
     cb(null, uuidv4() + path.extname(file.originalname));
   },
 });
-var upload = multer({ storage: storage });
 
-staffRouters.post(
+const upload = multer({ storage: storage });
+
+staffRouter.post(
   "/uploads",
   upload.single("uploads"),
   function (req, res, next) {
-    // req.file is the `profile-file` file
-    // req.body will hold the text fields, if there were any
-    // console.log(JSON.stringify(req.file))
+    if (!req.file) {
+      return res.status(400).json({ error: "File upload failed." });
+    }
     res.json({ url: req.file.path });
   }
 );
