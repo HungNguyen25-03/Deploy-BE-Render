@@ -109,11 +109,6 @@ staffRouters.put(
 
 const baseDir = path.resolve(process.cwd(), "uploads");
 
-// Ensure the upload directory exists
-if (!fs.existsSync(baseDir)) {
-  fs.mkdirSync(baseDir, { recursive: true });
-}
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, baseDir);
