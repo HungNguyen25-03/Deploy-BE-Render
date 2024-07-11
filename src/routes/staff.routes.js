@@ -111,7 +111,7 @@ const baseDir = path.resolve(process.cwd(), "uploads");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, baseDir);
+    cb(null, "uploads");
   },
   filename: function (req, file, cb) {
     cb(null, uuidv4() + path.extname(file.originalname));
@@ -127,7 +127,7 @@ staffRouters.post(
     if (!req.file) {
       return res.status(400).json({ error: "File upload failed." });
     }
-    res.json({ url: path.join(baseDir, req.file.filename) });
+    res.json({ url: req.file.path });
   }
 );
 
